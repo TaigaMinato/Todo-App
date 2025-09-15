@@ -4,7 +4,7 @@ A simple **Todo API** built with FastAPI and SQLite, designed to practice modern
 
 ---
 
-## 🚀 Features
+## Features
 - CRUD API for tasks
 - SQLite + SQLAlchemy for persistence
 - Pydantic for request/response validation
@@ -14,13 +14,13 @@ A simple **Todo API** built with FastAPI and SQLite, designed to practice modern
 
 ---
 
-## 📦 Requirements
+## Requirements
 - Python 3.12+
 - Virtual environment (`venv`)
 
 ---
 
-## ⚙️ Setup
+## Setup
 
 Clone the repository:
 
