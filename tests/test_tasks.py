@@ -3,14 +3,18 @@ from src.main import app
 
 client = TestClient(app)
 
+created_task_id = None
+
 
 def test_create_task():
-    response = client.post("/tasks?title=Buy milk")
+    global created_task_id
+    response = client.post("/tasks", json={"title": "Buy milk"})
     assert response.status_code == 200
     data = response.json()
-    assert data["id"] == 1
+    assert "id" in data
     assert data["title"] == "Buy milk"
     assert data["done"] is False
+    created_task_id = data["id"]
 
 
 def test_read_tasks():
@@ -22,22 +26,25 @@ def test_read_tasks():
 
 
 def test_read_task():
-    response = client.get("/tasks/1")
+    global created_task_id
+    response = client.get(f"/tasks/{created_task_id}")
     assert response.status_code == 200
     data = response.json()
-    assert data["id"] == 1
+    assert data["id"] == created_task_id
     assert data["title"] == "Buy milk"
 
 
 def test_update_task():
-    response = client.put("/tasks/1?done=true")
+    global created_task_id
+    response = client.put(f"/tasks/{created_task_id}", json={"done": True})
     assert response.status_code == 200
     data = response.json()
     assert data["done"] is True
 
 
 def test_delete_task():
-    response = client.delete("/tasks/1")
+    global created_task_id
+    response = client.delete(f"/tasks/{created_task_id}")
     assert response.status_code == 200
     data = response.json()
     assert data["message"] == "Task deleted"
